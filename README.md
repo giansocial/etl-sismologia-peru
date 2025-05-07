@@ -1,24 +1,22 @@
-# ETL Sismologia - Peru
+# ETL Sismología - Perú
 
-Soy Gian Cruz.
+¿Sabías que Perú registra más de 400 sismos perceptibles al año y que se ubica en una de las zonas de subducción más activas del planeta? El terremoto de Pisco en 2007 (8.0 Mw) dejó 595 muertos y más de USD 500 millones en daños. La data sísmica para anticipar patrones de riesgo existe, pero estaba dispersa en un catálogo de texto plano del USGS.
 
-Pipeline ETL que consume la API publica del USGS (United States Geological Survey) para extraer, transformar y analizar la actividad sismica del Peru. Los datos se cargan a un warehouse SQLite y se generan reportes de distribucion de magnitud, profundidad y la relacion Gutenberg-Richter.
+Soy Gian Cruz. Construí este pipeline ETL para consumir la API pública del USGS, extraer eventos sísmicos dentro del territorio peruano, clasificarlos por magnitud, profundidad y región, y calcular la relación Gutenberg-Richter que describe la distribución estadística de magnitudes. Todo containerizado con Docker.
 
-Peru se ubica en el Cinturon de Fuego del Pacifico y registra miles de sismos al anio. La placa de Nazca subduce bajo la placa Sudamericana generando actividad sismica constante, especialmente en la zona sur del pais.
+## Qué hace
 
-## Que hace
-
-- Consulta la API USGS FDSNWS filtrando por bounding box de Peru
+- Consulta la API USGS FDSNWS filtrando por bounding box de Perú
 - Parsea features GeoJSON a registros tabulares
-- Clasifica sismos por magnitud (micro a gran), profundidad y region
-- Genera estadisticas mensuales por region sismica
-- Calcula distribucion de magnitudes y relacion Gutenberg-Richter
+- Clasifica sismos por magnitud (micro a gran), profundidad y región
+- Genera estadísticas mensuales por región sísmica
+- Calcula distribución de magnitudes y relación Gutenberg-Richter
 - Identifica eventos significativos (mag >= 5.0)
-- Analisis de profundidad por region (superficial, intermedio, profundo)
-- Carga a SQLite con indices optimizados
+- Análisis de profundidad por región (superficial, intermedio, profundo)
+- Carga a SQLite con índices optimizados
 - Contenedorizado con Docker
 
-## Instalacion
+## Instalación
 
 ```bash
 python -m venv venv
@@ -62,12 +60,12 @@ pytest tests/ -v
 ```
 etl-sismologia-peru/
 ├── src/
-│   ├── config/settings.py         # Bbox Peru, categorias, config
+│   ├── config/settings.py         # Bbox Perú, categorías, config
 │   ├── extract/usgs_client.py     # Cliente API USGS con retry
 │   ├── transform/
 │   │   ├── cleaner.py             # Parsing GeoJSON, clasificaciones
 │   │   └── enricher.py            # Stats, Gutenberg-Richter
-│   ├── quality/validators.py      # Validacion de rangos y completitud
+│   ├── quality/validators.py      # Validación de rangos y completitud
 │   ├── load/warehouse.py          # SQLite con indices
 │   ├── utils/logger.py
 │   └── pipeline.py                # Orquestador (CLI)
@@ -89,8 +87,8 @@ Peru sits on the Pacific Ring of Fire. The Nazca plate subducts beneath the Sout
 
 ## Fuentes de datos
 
-| Fuente | Descripcion | Enlace |
+| Fuente | Descripción | Enlace |
 |--------|-------------|--------|
-| USGS Earthquake Catalog API | API publica de eventos sismicos globales (GeoJSON) | [https://earthquake.usgs.gov/fdsnws/event/1/](https://earthquake.usgs.gov/fdsnws/event/1/) |
-| USGS Earthquake Hazards Program | Programa de monitoreo sismico del USGS | [https://earthquake.usgs.gov/](https://earthquake.usgs.gov/) |
-| IGP Peru | Instituto Geofisico del Peru - monitoreo sismico nacional | [https://www.igp.gob.pe/servicios/centro-sismologico-nacional/](https://www.igp.gob.pe/servicios/centro-sismologico-nacional/) |
+| USGS Earthquake Catalog API | API pública de eventos sísmicos globales (GeoJSON) | [https://earthquake.usgs.gov/fdsnws/event/1/](https://earthquake.usgs.gov/fdsnws/event/1/) |
+| USGS Earthquake Hazards Program | Programa de monitoreo sísmico del USGS | [https://earthquake.usgs.gov/](https://earthquake.usgs.gov/) |
+| IGP Perú | Instituto Geofísico del Perú - monitoreo sísmico nacional | [https://www.igp.gob.pe/servicios/centro-sismologico-nacional/](https://www.igp.gob.pe/servicios/centro-sismologico-nacional/) |
