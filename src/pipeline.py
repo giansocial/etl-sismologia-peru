@@ -14,9 +14,9 @@ from src.transform.enricher import (
 )
 from src.quality.validators import run_quality_report
 from src.load.warehouse import init_db, load_to_db
-from src.utils.logger import setup_logging
+from src.utils.logger import get_logger
 
-log = logging.getLogger(__name__)
+log = get_logger(__name__)
 
 
 def run_pipeline(start_year: int = None, end_year: int = None, min_mag: float = 2.0) -> dict:
@@ -75,7 +75,6 @@ def main():
     parser.add_argument("--min-mag", type=float, default=2.0)
     args = parser.parse_args()
 
-    setup_logging()
     result = run_pipeline(args.start, args.end, args.min_mag)
     print(json.dumps(result, indent=2, ensure_ascii=False))
 
