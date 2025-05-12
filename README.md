@@ -85,6 +85,16 @@ etl-sismologia-peru/
 | USGS Earthquake Hazards Program | Programa de monitoreo sísmico del USGS | [https://earthquake.usgs.gov/](https://earthquake.usgs.gov/) |
 | IGP Perú | Instituto Geofísico del Perú - monitoreo sísmico nacional | [https://www.igp.gob.pe/servicios/centro-sismologico-nacional/](https://www.igp.gob.pe/servicios/centro-sismologico-nacional/) |
 
+## Visualizaciones
+
+Resultados del analisis exploratorio (notebook completo en `notebooks/`):
+
+![Magnitud vs profundidad de sismos](docs/images/grafico_01.png)
+
+![Distribucion de magnitudes - Gutenberg-Richter](docs/images/grafico_02.png)
+
+![Distribucion mensual de sismos por anio](docs/images/grafico_03.png)
+
 ## Licencia
 
 MIT
