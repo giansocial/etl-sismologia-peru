@@ -77,14 +77,6 @@ etl-sismologia-peru/
 
 ---
 
-## What it does
-
-ETL pipeline consuming the USGS public earthquake API to extract, transform, and analyze seismic activity in Peru. Data loads into a SQLite warehouse with reports on magnitude distribution, depth analysis, and the Gutenberg-Richter relationship.
-
-Peru sits on the Pacific Ring of Fire. The Nazca plate subducts beneath the South American plate, generating constant seismic activity, especially in the southern region.
-
----
-
 ## Fuentes de datos
 
 | Fuente | Descripción | Enlace |
@@ -92,3 +84,36 @@ Peru sits on the Pacific Ring of Fire. The Nazca plate subducts beneath the Sout
 | USGS Earthquake Catalog API | API pública de eventos sísmicos globales (GeoJSON) | [https://earthquake.usgs.gov/fdsnws/event/1/](https://earthquake.usgs.gov/fdsnws/event/1/) |
 | USGS Earthquake Hazards Program | Programa de monitoreo sísmico del USGS | [https://earthquake.usgs.gov/](https://earthquake.usgs.gov/) |
 | IGP Perú | Instituto Geofísico del Perú - monitoreo sísmico nacional | [https://www.igp.gob.pe/servicios/centro-sismologico-nacional/](https://www.igp.gob.pe/servicios/centro-sismologico-nacional/) |
+
+## Licencia
+
+MIT
+
+---
+
+# Seismology ETL - Peru
+
+Did you know Peru records over 400 perceptible earthquakes per year and sits on one of the most active subduction zones on the planet? The 2007 Pisco earthquake (8.0 Mw) killed 595 people and caused over USD 500 million in damages. The seismic data to anticipate risk patterns exists, but it was scattered across USGS plain-text catalogs.
+
+I'm Gian Cruz. I built this ETL pipeline to consume the USGS public API, extract seismic events within Peruvian territory, classify them by magnitude, depth, and region, and compute the Gutenberg-Richter relationship that describes the statistical distribution of earthquake magnitudes.
+
+## Quick start
+
+```bash
+git clone https://github.com/giansocial/etl-sismologia-peru.git
+cd etl-sismologia-peru
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python -m src.pipeline --start 2010 --end 2024
+```
+
+## Data sources
+
+| Source | Description | Link |
+|--------|-------------|------|
+| USGS Earthquake Catalog API | Global seismic events public API (GeoJSON) | [https://earthquake.usgs.gov/fdsnws/event/1/](https://earthquake.usgs.gov/fdsnws/event/1/) |
+| USGS Earthquake Hazards Program | USGS seismic monitoring program | [https://earthquake.usgs.gov/](https://earthquake.usgs.gov/) |
+
+## License
+
+MIT
