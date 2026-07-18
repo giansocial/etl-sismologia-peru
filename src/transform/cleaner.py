@@ -2,6 +2,8 @@ import logging
 import pandas as pd
 from datetime import datetime, timezone
 
+from src.config.settings import MAG_CATEGORIES, REGIONES_SISMICAS
+
 log = logging.getLogger(__name__)
 
 
@@ -35,19 +37,10 @@ def clean_earthquakes(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def classify_magnitude(mag: float) -> str:
-    if mag < 2:
-        return "micro"
-    if mag < 4:
-        return "menor"
-    if mag < 5:
-        return "ligero"
-    if mag < 6:
-        return "moderado"
-    if mag < 7:
-        return "fuerte"
-    if mag < 8:
-        return "mayor"
-    return "gran"
+    for cat, (_low, high) in MAG_CATEGORIES.items():
+        if mag < high:
+            return cat
+    return list(MAG_CATEGORIES.keys())[-1]
 
 
 def classify_depth(depth_km: float) -> str:
@@ -59,11 +52,10 @@ def classify_depth(depth_km: float) -> str:
 
 
 def classify_region(lat: float) -> str:
-    if lat > -6.0:
-        return "norte"
-    if lat > -12.0:
-        return "centro"
-    return "sur"
+    for region, bounds in REGIONES_SISMICAS.items():
+        if lat > bounds["lat_min"]:
+            return region
+    return list(REGIONES_SISMICAS.keys())[-1]
 
 
 def add_classifications(df: pd.DataFrame) -> pd.DataFrame:

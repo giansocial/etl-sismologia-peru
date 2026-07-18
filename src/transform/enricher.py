@@ -55,9 +55,17 @@ def significant_events(df: pd.DataFrame, min_mag: float = 5.0) -> pd.DataFrame:
 def gutenberg_richter(df: pd.DataFrame) -> pd.DataFrame:
     mags = np.arange(2.0, 8.5, 0.5)
     rows = []
-    total = len(df)
     for m in mags:
         n = len(df[df["magnitud"] >= m])
         log_n = np.log10(n) if n > 0 else 0
         rows.append({"magnitud_min": m, "n_eventos": n, "log10_n": round(log_n, 3)})
-    return pd.DataFrame(rows)
+    result = pd.DataFrame(rows)
+
+    valid = result[result["n_eventos"] > 0]
+    if len(valid) >= 2:
+        slope, _intercept = np.polyfit(valid["magnitud_min"], valid["log10_n"], 1)
+        result.attrs["b_value"] = round(-slope, 3)
+    else:
+        result.attrs["b_value"] = None
+
+    return result
