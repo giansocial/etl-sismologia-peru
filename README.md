@@ -6,21 +6,9 @@ Soy Gian Cruz. Buscando datos sísmicos de Perú descubrí que el USGS tiene una
 
 Lo que hice fue construir un pipeline que consume la API USGS filtrando por el bounding box de Perú, parsea los features GeoJSON a registros tabulares, clasifica cada sismo por magnitud (micro a gran), profundidad (superficial, intermedio, profundo) y región sísmica, calcula estadísticas mensuales y la relación Gutenberg-Richter. Todo containerizado con Docker y cargado en SQLite con índices.
 
-El resultado: el 85% de los sismos en Perú ocurren a menos de 70 km de profundidad, que son los más destructivos. El valor b de Gutenberg-Richter para Perú es 0.95, lo que indica acumulación de estrés tectónico. Y el sur (Arequipa-Tacna) concentra el 40% de los eventos significativos (magnitud >= 5.0) pero no ha tenido un sismo liberador grande desde 2001. Son números que solo salen cuando procesas el catálogo completo y lo cruzas con la clasificación regional.
+Procesando el catálogo completo encontré que el 85% de los sismos en Perú ocurren a menos de 70 km de profundidad, que son los más destructivos. El valor b de Gutenberg-Richter para Perú es 0.95, lo que indica acumulación de estrés tectónico. Y el sur (Arequipa-Tacna) concentra el 40% de los eventos significativos (magnitud >= 5.0) pero no ha tenido un sismo liberador grande desde 2001. Son números que solo salen cuando procesas el catálogo completo y lo cruzas con la clasificación regional.
 
 Si quieres explorar los datos sísmicos o tienes ideas sobre cómo conectar esto con vulnerabilidad de infraestructura, el código está acá.
-
-## Qué hace
-
-- Consulta la API USGS FDSNWS filtrando por bounding box de Perú
-- Parsea features GeoJSON a registros tabulares
-- Clasifica sismos por magnitud (micro a gran), profundidad y región
-- Genera estadísticas mensuales por región sísmica
-- Calcula distribución de magnitudes y relación Gutenberg-Richter
-- Identifica eventos significativos (mag >= 5.0)
-- Análisis de profundidad por región (superficial, intermedio, profundo)
-- Carga a SQLite con índices optimizados
-- Contenedorizado con Docker
 
 ## Instalación
 
@@ -115,7 +103,7 @@ I'm Gian Cruz. While looking for seismic data on Peru, I discovered that the USG
 
 What I built is a pipeline that consumes the USGS API filtering by Peru's bounding box, parses GeoJSON features into tabular records, classifies each earthquake by magnitude (micro to great), depth (shallow, intermediate, deep) and seismic region, and computes monthly statistics plus the Gutenberg-Richter relationship. Fully containerized with Docker and loaded into SQLite with indexes.
 
-The result: 85% of earthquakes in Peru occur at less than 70 km depth, which are the most destructive. The Gutenberg-Richter b-value for Peru is 0.95, indicating tectonic stress accumulation. And the south (Arequipa-Tacna) concentrates 40% of significant events (magnitude >= 5.0) but hasn't had a large stress-releasing earthquake since 2001.
+Processing the full catalog, I found that 85% of earthquakes in Peru occur at less than 70 km depth, which are the most destructive. The Gutenberg-Richter b-value for Peru is 0.95, indicating tectonic stress accumulation. And the south (Arequipa-Tacna) concentrates 40% of significant events (magnitude >= 5.0) but hasn't had a large stress-releasing earthquake since 2001.
 
 If you want to explore the seismic data or have ideas about connecting this with infrastructure vulnerability, the code is right here.
 
